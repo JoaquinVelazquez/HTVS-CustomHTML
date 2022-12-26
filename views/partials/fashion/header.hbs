@@ -1,0 +1,505 @@
+<div class="header-wrapper header-wrapper--fixed {{headerAdditionalClasses}}" id="header-wrapper"
+  data-ms-theme="fashion">
+  {{#if flash.enabled}}
+  {{> components/flash}}
+  {{/if}}
+  {{> components/cookieDisclaimer}}
+  <header role="banner" class="nav-fashion-header" itemtype="http://schema.org/Store" itemid="#this" itemscope="">
+
+    <!-- Desktop menu sidebar -->
+    <div itemscope itemtype="http://schema.org/SiteNavigationElement"
+      class="nav-fashion-menu nav-fashion-sidebar-menu header--custom-background" id="nav-vertical-list">
+      <div class="close-sidebar-button">
+        <input type="checkbox" id="nav-fashion__close-sidebar-button" name="nav-tools-header__menu-switch">
+        <label for="nav-fashion__close-sidebar-button" id="close-sidebar-button">
+          <span class="nav-header__close-sidebar-button nav-header__hamburger"></span>
+          <span class="nav-header__close-sidebar-button nav-header__hamburger"></span>
+        </label>
+      </div>
+      <ul class="sidebar-menu-list">
+        {{#if sale}}
+        <li class="nav-fashion-list--vertical__item nav-fashion__sale-link header--custom-border">
+          <a href="{{sale.url}}" class="header--custom-text">{{sale.text}}</a>
+        </li>
+        <li class="nav-fashion-list__item nav-fashion__hamburger-button" id="nav-fashion__hamburger-button"></li>
+        {{/if}}
+        {{#each menu}}
+        <li class="nav-fashion-list--vertical__item">
+          <a href="{{this.url}}" class="header--custom-text">{{this.name}}</a>
+          {{#if this.nodes}}
+          <div>
+            <input type="checkbox" data-js="categories-toggle" id="desktop-{{@index}}"
+              name="nav-tools-header__menu-switch">
+            <label for="desktop-{{@index}}" class="toggle-menu">
+              <span class="nav-header__toggle nav-header__hamburger"></span>
+              <span class="nav-header__toggle nav-header__hamburger"></span>
+            </label>
+          </div>
+          {{/if}}
+        </li>
+        <div class="nav-fashion-list--vertical__subitem-container" data-toggle="desktop-{{@index}}">
+          {{#each this.nodes}}
+          <li class="nav-fashion-list--vertical__subitem">
+            <a href="{{this.url}}" class="header--custom-text">{{this.name}}</a>
+            {{#if this.nodes}}
+            <div>
+              <input type="checkbox" data-js="categories-toggle" id="desktop-attr-{{@../index}}-{{@index}}"
+                name="nav-tools-header__menu-switch">
+              <label for="desktop-attr-{{@../index}}-{{@index}}" class="toggle-menu">
+                <span class="nav-header__toggle nav-header__hamburger"></span>
+                <span class="nav-header__toggle nav-header__hamburger"></span>
+              </label>
+            </div>
+            {{/if}}
+          </li>
+          <div class="nav-fashion-list--vertical__attr-container" data-toggle="desktop-attr-{{@../index}}-{{@index}}">
+            {{#each this.nodes}}
+            <li class="nav-fashion-list--vertical__attribute">
+              <a href="{{this.url}}" class="header--custom-text">{{this.name}}</a>
+            </li>
+            {{/each}}
+          </div>
+          {{/each}}
+        </div>
+        <hr class="nav-fashion-list--vertical__hr header--custom-border" />
+        {{/each}}
+
+        <li class="nav-fashion-list--vertical__item how-buy__button" data-js="how-buy__button">
+          <a href="{{linkToHowBuy.href}}" class="header--custom-text">{{linkToHowBuy.label}}</a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="nav-fashion-header__bounds">
+      <!-- Desktop menu navbar categories -->
+      <ul itemscope itemtype="http://schema.org/SiteNavigationElement" class="nav-fashion-list" id="nav-list">
+        <li class="nav-fashion-list__item nav-fashion__hamburger-button" id="nav-fashion__hamburger-button">
+          <input type="checkbox" id="mobile-categories-menu-switch" name="nav-tools-header__menu-switch">
+          <label for="mobile-categories-menu-switch" id="hamburguer-menu">
+            <span class="nav-header__hamburger"></span>
+            <span class="nav-header__hamburger"></span>
+            <span class="nav-header__hamburger"></span>
+          </label>
+        </li>
+
+        {{#each menu}}
+        <li class="nav-fashion-list__item" data-js="{{this.name}}-{{@index}}" has-childs={{this.nodes}}>
+          <a href="{{this.url}}">
+            <span class="header--custom-text">{{this.name}}</span>
+          </a>
+        </li>
+        {{/each}}
+
+        {{#if sale.text}}
+        <li class="nav-fashion-list__item nav-fashion__sale-link" id="nav-fashion__sale-link">
+          <a href="{{sale.url}}" class="header--custom-text">{{sale.text}}</a>
+        </li>
+        {{/if}}
+
+        <li class="nav-fashion-list__item nav-fashion__see-more" id="nav-fashion__see-more" has-childs="true">
+          <a class="header--custom-text">
+            <span>{{i18n.moreCategories}}</span>
+          </a>
+        </li>
+      </ul>
+
+      <!-- Mobile responsive menu -->
+      <div itemscope itemtype="http://schema.org/SiteNavigationElement"
+        class="nav-fashion-menu nav-fashion-responsive-menu header--custom-background" id="responsive-menu">
+        <form class="nav-fashion-search-form header--custom-border" id="search-form-responsive" novalidate="">
+          <button type="submit" class="search-button">
+            {{> fashion/views/partials/search}}
+          </button>
+          <input type="text" placeholder="{{i18n.smallPlaceholder}}" class="header--custom-text"
+            id="search-input-responsive" required="" autocomplete=" off">
+        </form>
+
+        <ul class="sidebar-menu-list">
+          <ul class="responsive-menu-list">
+
+            {{!-- <li class="nav-fashion-list--vertical__item">
+              <a href="/_DisplayType_G_Discount_5-100_NoIndex_True"
+                class="header--custom-text-alt categoria-principal">HOT SALE<img class="nav-header__image"
+                  src="https://iili.io/WYtkEg.png" alt="HotSale" itemprop="logo" /></a>
+            </li> --}}
+
+            <hr class="nav-fashion-list--vertical__hr header--custom-border" />
+
+            <li class="nav-fashion-list--vertical__item">
+              <a href="/nuestros-productos" class="header--custom-text-alt categoria-principal">Todos los productos</a>
+              <div>
+                <input type="checkbox" data-js="categories-toggle" id="desktop-{{@index}}"
+                  name="nav-tools-header__menu-switch">
+                <label for="desktop-{{@index}}" class="toggle-menu">
+                  <span class="nav-header__toggle nav-header__hamburger"></span>
+                  <span class="nav-header__toggle nav-header__hamburger"></span>
+                </label>
+              </div>
+            </li>
+
+            <div class="nav-fashion-list--vertical__subitem-container" data-toggle="desktop-{{@index}}">
+              <li class="nav-fashion-list--vertical__subitem">
+                <a href="/gaming" class="header--custom-text-alt categoria-principal">Gaming</a><i
+                  class="fas fa-angle-down down sinteticos"></i>
+              </li>
+
+              <ul class="submenuSinteticos">
+                <li class="nav-fashion-list--vertical__attribute">
+                  <a href="/sillas" class="header--custom-text-alt">Sillas</a>
+                </li>
+                <li class="nav-fashion-list--vertical__attribute">
+                  <a href="https://www.htvs.com.ar/computacion/pc-escritorio/pc-gaming#applied_filter_id%3Dcategory%26applied_filter_name%3DCategor%C3%ADas%26applied_filter_order%3D2%26applied_value_id%3DMLA430637%26applied_value_name%3DPC+de+Escritorio%26applied_value_order%3D4%26applied_value_results%3D7%26is_custom%3Dfalse"
+                    class="header--custom-text-alt">PC Gaming</a>
+                </li>
+                {{!-- <li class="nav-fashion-list--vertical__attribute">
+                  <a href="/monitores-gaming" class="header--custom-text-alt">Monitores</a>
+                </li> --}}
+                <li class="nav-fashion-list--vertical__attribute">
+                  <a href="https://www.htvs.com.ar/computacion/accesorios-pc-gaming/auriculares-gaming#applied_filter_id%3Dcategory%26applied_filter_name%3DCategor%C3%ADas%26applied_filter_order%3D2%26applied_value_id%3DMLA447778%26applied_value_name%3DAccesorios+para+PC+Gaming%26applied_value_order%3D1%26applied_value_results%3D4%26is_custom%3Dfalse"
+                    class="header--custom-text-alt">Auriculares</a>
+                </li>
+                <li class="nav-fashion-list--vertical__attribute">
+                  <a href="https://www.htvs.com.ar/computacion/mouses-teclados-controles/mouses/mouses#applied_filter_id%3Dcategory%26applied_filter_name%3DCategor%C3%ADas%26applied_filter_order%3D2%26applied_value_id%3DMLA1714%26applied_value_name%3DMouses%26applied_value_order%3D2%26applied_value_results%3D4%26is_custom%3Dfalse"
+                    class="header--custom-text-alt">Mouses</a>
+                </li>
+                <li class="nav-fashion-list--vertical__attribute">
+                  <a href="https://www.htvs.com.ar/computacion/perifericos-pc/teclados#applied_filter_id%3Dcategory%26applied_filter_name%3DCategor%C3%ADas%26applied_filter_order%3D3%26applied_value_id%3DMLA454379%26applied_value_name%3DPerif%C3%A9ricos+de+PC%26applied_value_order%3D3%26applied_value_results%3D3%26is_custom%3Dfalse"
+                    class="header--custom-text-alt">Teclados</a>
+                </li>
+                {{!-- <li class="nav-fashion-list--vertical__attribute">
+                  <a href="/placas-video" class="header--custom-text-alt">Placas de video</a>
+                </li> --}}
+                <li class="nav-fashion-list--vertical__attribute">
+                  <a href="/gabinetes" class="header--custom-text-alt">Gabinetes</a>
+                </li>
+                <li class="nav-fashion-list--vertical__attribute">
+                  <a href="https://www.htvs.com.ar/electronica/componentes-electronicos/fuentes_NoIndex_True#applied_filter_id%3Dcategory%26applied_filter_name%3DCategor%C3%ADas%26applied_filter_order%3D3%26applied_value_id%3DMLA11830%26applied_value_name%3DComponentes+Electr%C3%B3nicos%26applied_value_order%3D1%26applied_value_results%3D2%26is_custom%3Dfalse"
+                    class="header--custom-text-alt">Fuentes</a>
+                </li>
+                <li class="nav-fashion-list--vertical__attribute">
+                  <a href="https://www.htvs.com.ar/electronica/media-streaming/streaming_NoIndex_True#applied_filter_id%3Dcategory%26applied_filter_name%3DCategor%C3%ADas%26applied_filter_order%3D2%26applied_value_id%3DMLA352001%26applied_value_name%3DMedia+Streaming%26applied_value_order%3D1%26applied_value_results%3D2%26is_custom%3Dfalse"
+                    class="header--custom-text-alt">Streaming</a>
+                </li>
+                <li class="nav-fashion-list--vertical__attribute">
+                  <a href="https://www.htvs.com.ar/computacion/mouses-teclados-controles/mouse-pads/mouses#applied_filter_id%3Dcategory%26applied_filter_name%3DCategor%C3%ADas%26applied_filter_order%3D2%26applied_value_id%3DMLA1716%26applied_value_name%3DMouse+Pads%26applied_value_order%3D1%26applied_value_results%3D6%26is_custom%3Dfalse"
+                    class="header--custom-text-alt">Mousepad</a>
+                </li>
+                <li class="nav-fashion-list--vertical__attribute">
+                  <a href="https://www.htvs.com.ar/computacion/laptops/gaming#applied_filter_id%3Dcategory%26applied_filter_name%3DCategor%C3%ADas%26applied_filter_order%3D2%26applied_value_id%3DMLA430687%26applied_value_name%3DLaptops+y+Accesorios%26applied_value_order%3D4%26applied_value_results%3D10%26is_custom%3Dfalse"
+                    class="header--custom-text-alt">Notebook Gaming</a>
+                </li>
+                {{!-- <li class="nav-fashion-list--vertical__attribute">
+                  <a href="/combos-gaming" class="header--custom-text-alt">Combos</a>
+                </li> --}}
+              </ul>
+            </div>
+
+            <div class="nav-fashion-list--vertical__subitem-container" data-toggle="desktop-{{@index}}">
+              <li class="nav-fashion-list--vertical__subitem">
+                <a href="/tecnologia" class="header--custom-text-alt categoria-principal">Tecnología</a><i
+                  class="fas fa-angle-down down telas"></i>
+              </li>
+
+              <ul class="submenuTelas">
+                <li class="nav-fashion-list--vertical__attribute">
+                  <a href="https://www.htvs.com.ar/computacion/laptops/notebook#applied_filter_id%3Dcategory%26applied_filter_name%3DCategor%C3%ADas%26applied_filter_order%3D4%26applied_value_id%3DMLA430687%26applied_value_name%3DLaptops+y+Accesorios%26applied_value_order%3D3%26applied_value_results%3D132%26is_custom%3Dfalse"
+                    class="header--custom-text-alt">Notebooks</a>
+                </li>
+                <li class="nav-fashion-list--vertical__attribute">
+                  <a href="/apple" class="header--custom-text-alt">Apple</a>
+                </li>
+                <li class="nav-fashion-list--vertical__attribute">
+                  <a href="https://www.htvs.com.ar/computacion/pc-escritorio/pc#applied_filter_id%3Dcategory%26applied_filter_name%3DCategor%C3%ADas%26applied_filter_order%3D2%26applied_value_id%3DMLA430637%26applied_value_name%3DPC+de+Escritorio%26applied_value_order%3D5%26applied_value_results%3D7%26is_custom%3Dfalse"
+                    class="header--custom-text-alt">PC's</a>
+                </li>
+                <li class="nav-fashion-list--vertical__attribute">
+                  <a href="/monitores" class="header--custom-text-alt">Monitores</a>
+                </li>
+                <li class="nav-fashion-list--vertical__attribute">
+                  <a href="/impresoras" class="header--custom-text-alt">Impresoras</a>
+                </li>
+                <li class="nav-fashion-list--vertical__attribute">
+                  <a href="/fuentes" class="header--custom-text-alt">Fuentes PC</a>
+                </li>
+                <li class="nav-fashion-list--vertical__attribute">
+                  <a href="https://www.htvs.com.ar/electronica/auriculares#applied_filter_id%3Dcategory%26applied_filter_name%3DCategor%C3%ADas%26applied_filter_order%3D4%26applied_value_id%3DMLA1000%26applied_value_name%3DElectr%C3%B3nica%2C+Audio+y+Video%26applied_value_order%3D2%26applied_value_results%3D5%26is_custom%3Dfalse"
+                    class="header--custom-text-alt">Auriculares</a>
+                </li>
+                <li class="nav-fashion-list--vertical__attribute">
+                  <a href="/mochilas" class="header--custom-text-alt">Mochilas y Maletines</a>
+                </li>
+              </ul>
+            </div>
+
+            <div class="nav-fashion-list--vertical__subitem-container" data-toggle="desktop-{{@index}}">
+              <li class="nav-fashion-list--vertical__subitem">
+                <a href="/seguridad" class="header--custom-text-alt categoria-principal">Seguridad</a><i
+                  class="fas fa-angle-down down forrerias"></i>
+              </li>
+
+              <ul class="submenuForrerias">
+                <li class="nav-fashion-list--vertical__attribute">
+                  <a href="/kitsseguridad" class="header--custom-text-alt">Kits HD</a>
+                </li>
+                {{!-- <li class="nav-fashion-list--vertical__attribute">
+                  <a href="/accesorios" class="header--custom-text-alt">Accesorios</a>
+                </li> --}}
+                <li class="nav-fashion-list--vertical__attribute">
+                  <a href="https://www.htvs.com.ar/hogar/camaras#applied_filter_id%3Dcategory%26applied_filter_name%3DCategor%C3%ADas%26applied_filter_order%3D4%26applied_value_id%3DMLA1574%26applied_value_name%3DHogar%2C+Muebles+y+Jard%C3%ADn%26applied_value_order%3D2%26applied_value_results%3D11%26is_custom%3Dfalse"
+                    class="header--custom-text-alt">Camaras</a>
+                </li>
+                {{!-- <li class="nav-fashion-list--vertical__attribute">
+                  <a href="/alarmas" class="header--custom-text-alt">Alarmas</a>
+                </li> --}}
+              </ul>
+            </div>
+
+            {{!-- <div class="nav-fashion-list--vertical__subitem-container" data-toggle="desktop-{{@index}}">
+              <li class="nav-fashion-list--vertical__subitem">
+                <a href="/hogar" class="header--custom-text-alt categoria-principal">Hogar</a>
+              </li>
+            </div> --}}
+
+            <div class="nav-fashion-list--vertical__subitem-container" data-toggle="desktop-{{@index}}">
+              <li class="nav-fashion-list--vertical__subitem">
+                <a href="/conectividad" class="header--custom-text-alt categoria-principal">Conectividad</a>
+              </li>
+            </div>
+
+            <div class="nav-fashion-list--vertical__subitem-container" data-toggle="desktop-{{@index}}">
+              <li class="nav-fashion-list--vertical__subitem">
+                <a href="https://www.htvs.com.ar/electronica/audio/audio#applied_filter_id%3Dcategory%26applied_filter_name%3DCategor%C3%ADas%26applied_filter_order%3D3%26applied_value_id%3DMLA409810%26applied_value_name%3DAudio%26applied_value_order%3D1%26applied_value_results%3D7%26is_custom%3Dfalse"
+                  class="header--custom-text-alt categoria-principal">Audio</a>
+              </li>
+            </div>
+
+            <div class="nav-fashion-list--vertical__subitem-container" data-toggle="desktop-{{@index}}">
+              <li class="nav-fashion-list--vertical__subitem">
+                <a href="/instrumentos" class="header--custom-text-alt categoria-principal">Instrumentos
+                  Musicales</a>
+              </li>
+            </div>
+
+            <hr class="nav-fashion-list--vertical__hr header--custom-border" />
+
+            <li class="nav-fashion-list--vertical__item">
+              <a href="/p/como-comprar" class="header--custom-text-alt categoria-principal">Preguntas Frecuentes</a>
+            </li>
+
+            <hr class="nav-fashion-list--vertical__hr header--custom-border" />
+
+            <li class="nav-fashion-list--vertical__item">
+              <a href="/p/contacto" class="header--custom-text-alt categoria-principal">Contacto</a>
+            </li>
+
+            <hr class="nav-fashion-list--vertical__hr header--custom-border" />
+
+            <li class="nav-fashion-list--vertical__item">
+              <a href="/politica-devolucion" class="header--custom-text-alt categoria-principal">Términos y Condiciones</a><i class="fas fa-angle-down down politica"></i>
+            </li>
+
+            <ul class="submenuPolitica">
+              <li class="nav-fashion-list--vertical__subitem">
+                <a href="https://pdfhost.io/v/4c2YcBL.0_ANULACION_DE_GARANTIAdocx" target="_blank" class="header--custom-text-alt categoria-principal">Política de Garantías y
+              Devoluciones</a>
+              </li>
+              <li class="nav-fashion-list--vertical__subitem">
+                <a href="https://pdfhost.io/v/a4IctN0tl_Planilla_RMA_Notebooks_HTVS_2" target="_blank" class="header--custom-text-alt categoria-principal">Descargar Planilla de
+              Devoluciones</a>
+              </li>
+            </ul>
+          </ul>
+      </div>
+
+      <!-- Logo -->
+      <h1 class="nav-fashion-header__title">
+        {{#if logo}}
+        <a class="nav-fashion-header__logo" href="/" id="logo-wrapper">
+          <span class="nav-header__title-hidden">{{shop.name}}</span>
+          <img class="nav-header__image" src="{{logo}}" alt="{{shop.name}}" itemprop="logo" />
+        </a>
+        {{!-- <a class="hot-sale" href="/_DisplayType_G_Discount_5-100_NoIndex_True" id="logo-wrapper">
+          <img class="nav-header__image" src="https://iili.io/WYtkEg.png" alt="HotSale" itemprop="logo" />
+          <span class="nav-header__title-hidden">{{shop.name}}</span>
+        </a> --}}
+        {{else}}
+        <a class="nav-fashion-header__logo header--custom-text" href="/" id="logo-wrapper">{{name}}</a>
+        {{/if}}
+      </h1>
+
+      <!-- Icons -->
+      <nav class="nav-fashion-header__nav-icons" id="nav-fashion-header__nav-icons">
+        <div class="nav-icons-group">
+          <form class="nav-search-form" id="search-form" novalidate="">
+            <input type="text" class="nav-search-input header--custom-border header--custom-text"
+              placeholder="{{i18n.smallPlaceholder}}" id="search-input" required="" autocomplete=" off">
+            <button type="submit" class="search-button" id="nav-search-button">
+              {{> fashion/views/partials/search}}
+            </button>
+          </form>
+          {{#if contact}}
+          <a href="{{contact.href}}" class="contact-button" rel="nofollow">
+            {{> fashion/views/partials/contact}}
+          </a>
+          {{/if}}
+          {{#if cart}}
+          <a href="{{cart.href}}" title="Carrito" class="cart-button" id="nav-cart">
+            {{> fashion/views/partials/cart}}
+          </a>
+          {{/if}}
+        </div>
+      </nav>
+    </div>
+
+    <!-- Desktop menu popover -->
+    <div itemscope itemtype="http://schema.org/SiteNavigationElement" id="popover-menu"
+      class="header--custom-background">
+      <!-- Categories -->
+      <div class="nav-bounds nav-fashion-desktop-categories-popover">
+        {{#each menu}}
+        <div class="nav-fashion-list--horizontal__item" data-toggle="{{this.name}}-{{@index}}">
+          <li class="nav-fashion-list--horizontal__category header--custom-text">
+            <a href="{{this.url}}">{{this.name}}</a>
+            <hr class="nav-fashion-list--vertical__hr header--custom-border" />
+          </li>
+          {{#each this.nodes}}
+          <div class="nav-fashion-list--horizontal__subitem">
+            <li class="header--custom-text">
+              <a href="{{this.url}}">{{this.name}}</a>
+            </li>
+            <div class="nav-fashion-list--horizontal__attr-container">
+              {{#each this.nodes}}
+              <li class="nav-fashion-list--horizontal__attribute header--custom-text">
+                <a href="{{this.url}}">{{this.name}}</a>
+              </li>
+              {{/each}}
+            </div>
+          </div>
+          {{/each}}
+        </div>
+        {{/each}}
+      </div>
+      <!-- See more -->
+      <div class="nav-bounds nav-fashion-desktop-see-more-popover" id="nav-popover-list">
+        {{#each menu}}
+        <div class="nav-fashion-list--horizontal__item" data-toggle="see-more">
+          <li class="nav-fashion-list--horizontal__category header--custom-text">
+            <a href="{{this.url}}">{{this.name}}</a>
+            <hr class="nav-fashion-list--vertical__hr header--custom-border" />
+          </li>
+          <div>
+            {{#each this.nodes}}
+            <li class="nav-fashion-list--horizontal__subitem header--custom-text">
+              <a href="{{this.url}}">{{this.name}}</a>
+            </li>
+            <div class="nav-fashion-list--horizontal__attr-container">
+              {{#each this.nodes}}
+              <li class="nav-fashion-list--horizontal__attribute header--custom-text">
+                <a href="{{this.url}}">{{this.name}}</a>
+              </li>
+              {{/each}}
+            </div>
+            {{/each}}
+          </div>
+        </div>
+        {{/each}}
+      </div>
+    </div>
+  </header>
+
+  <nav class="contenedor-nav">
+    <ul class="navbar">
+      <li>
+        <a href="/gaming_DisplayType_G" class="link-nav primer-link">Gaming</a>
+
+        <ul>
+          <li><a href="/sillas_DisplayType_G"><i class="fas fa-chair"></i>Sillas</a></li>
+          <li><a
+              href="https://www.htvs.com.ar/computacion/pc-escritorio/pc-gaming_DisplayType_G#applied_filter_id%3Dcategory%26applied_filter_name%3DCategor%C3%ADas%26applied_filter_order%3D2%26applied_value_id%3DMLA430637%26applied_value_name%3DPC+de+Escritorio%26applied_value_order%3D4%26applied_value_results%3D7%26is_custom%3Dfalse_DisplayType_G"><i
+                class="fas fa-gamepad"></i>PC Gaming</a></li>
+          {{!-- <li><a href="/monitores-gaming"><i class="fas fa-tv"></i>Monitores</a></li> --}}
+          <li><a
+              href="https://www.htvs.com.ar/computacion/accesorios-pc-gaming/auriculares-gaming_DisplayType_G#applied_filter_id%3Dcategory%26applied_filter_name%3DCategor%C3%ADas%26applied_filter_order%3D2%26applied_value_id%3DMLA447778%26applied_value_name%3DAccesorios+para+PC+Gaming%26applied_value_order%3D1%26applied_value_results%3D4%26is_custom%3Dfalse_DisplayType_G"><i
+                class="fas fa-headset"></i>Auriculares</a></li>
+          <li><a
+              href="https://www.htvs.com.ar/computacion/mouses-teclados-controles/mouses/mouses_DisplayType_G#applied_filter_id%3Dcategory%26applied_filter_name%3DCategor%C3%ADas%26applied_filter_order%3D2%26applied_value_id%3DMLA1714%26applied_value_name%3DMouses%26applied_value_order%3D2%26applied_value_results%3D4%26is_custom%3Dfalse_DisplayType_G"><i
+                class="fas fa-mouse"></i>Mouses</a></li>
+          <li><a
+              href="https://www.htvs.com.ar/computacion/perifericos-pc/teclados_DisplayType_G#applied_filter_id%3Dcategory%26applied_filter_name%3DCategor%C3%ADas%26applied_filter_order%3D3%26applied_value_id%3DMLA454379%26applied_value_name%3DPerif%C3%A9ricos+de+PC%26applied_value_order%3D3%26applied_value_results%3D3%26is_custom%3Dfalse_DisplayType_G"><i
+                class="far fa-keyboard"></i>Teclados</a></li>
+          {{!-- <li><a href="/placas-video"><i class="fas fa-microchip"></i>Placas de video</a></li> --}}
+          <li><a href="/gabinetes_DisplayType_G"><i class="fas fa-hdd"></i>Gabinetes</a></li>
+          <li><a
+              href="https://www.htvs.com.ar/electronica/componentes-electronicos/fuentes_DisplayType_G_NoIndex_True#applied_filter_id%3Dcategory%26applied_filter_name%3DCategor%C3%ADas%26applied_filter_order%3D3%26applied_value_id%3DMLA11830%26applied_value_name%3DComponentes+Electr%C3%B3nicos%26applied_value_order%3D1%26applied_value_results%3D2%26is_custom%3Dfalse_DisplayType_G"><i
+                class="fas fa-charging-station"></i>Fuentes</a></li>
+          <li><a
+              href="https://www.htvs.com.ar/electronica/media-streaming/streaming_DisplayType_G_NoIndex_True#applied_filter_id%3Dcategory%26applied_filter_name%3DCategor%C3%ADas%26applied_filter_order%3D2%26applied_value_id%3DMLA352001%26applied_value_name%3DMedia+Streaming%26applied_value_order%3D1%26applied_value_results%3D2%26is_custom%3Dfalse_DisplayType_G"><i
+                class="fas fa-broadcast-tower"></i>Streaming</a></li>
+          <li><a href="/mouse-pad_DisplayType_G"><i class="fas fa-mouse-pointer"></i>Mouse Pad</a></li>
+          <li><a
+              href="https://www.htvs.com.ar/computacion/laptops/gaming_DisplayType_G#applied_filter_id%3Dcategory%26applied_filter_name%3DCategor%C3%ADas%26applied_filter_order%3D2%26applied_value_id%3DMLA430687%26applied_value_name%3DLaptops+y+Accesorios%26applied_value_order%3D4%26applied_value_results%3D10%26is_custom%3Dfalse_DisplayType_G"><i
+                class="fas fa-laptop"></i>Notebook Gaming</a></li>
+          {{!-- <li><a href="/combos-gaming"><i class="fas fa-cart-plus"></i>Combos</a></li> --}}
+        </ul>
+      </li>
+
+      <li>
+        <a href="/tecnologia_DisplayType_G" class="link-nav">Tecnología</a>
+
+        <ul>
+          <li><a
+              href="https://www.htvs.com.ar/computacion/laptops/notebook_DisplayType_G#applied_filter_id%3Dcategory%26applied_filter_name%3DCategor%C3%ADas%26applied_filter_order%3D4%26applied_value_id%3DMLA430687%26applied_value_name%3DLaptops+y+Accesorios%26applied_value_order%3D3%26applied_value_results%3D132%26is_custom%3Dfalse_DisplayType_G"><i
+                class="fas fa-laptop"></i>Notebooks</a></li>
+          <li><a href="/apple_DisplayType_G"><i class="fab fa-apple"></i>Apple</a></li>
+          <li><a
+              href="https://www.htvs.com.ar/computacion/pc-escritorio/pc_DisplayType_G#applied_filter_id%3Dcategory%26applied_filter_name%3DCategor%C3%ADas%26applied_filter_order%3D2%26applied_value_id%3DMLA430637%26applied_value_name%3DPC+de+Escritorio%26applied_value_order%3D5%26applied_value_results%3D7%26is_custom%3Dfalse_DisplayType_G"><i
+                class="fas fa-desktop"></i>PC's</a></li>
+          <li><a href="/monitores_DisplayType_G"><i class="fas fa-tv"></i>Monitores</a></li>
+          <li><a href="/impresoras_DisplayType_G"><i class="fas fa-print"></i>Impresoras</a></li>
+          <li><a href="/fuentes_DisplayType_G"><i class="fas fa-charging-station"></i>Fuentes PC</a></li>
+          <li><a
+              href="https://www.htvs.com.ar/electronica/auriculares_DisplayType_G#applied_filter_id%3Dcategory%26applied_filter_name%3DCategor%C3%ADas%26applied_filter_order%3D4%26applied_value_id%3DMLA1000%26applied_value_name%3DElectr%C3%B3nica%2C+Audio+y+Video%26applied_value_order%3D2%26applied_value_results%3D5%26is_custom%3Dfalse_DisplayType_G"><i
+                class="fas fa-headset"></i>Auriculares</a></li>
+          <li><a href="/mochilas_DisplayType_G"><i class="fas fa-briefcase"></i>Mochilas y Maletines</a></li>
+        </ul>
+      </li>
+
+      <li>
+        <a href="/seguridad_DisplayType_G" class="link-nav">Seguridad</a>
+
+        <ul>
+          <li><a href="/kitsseguridad_DisplayType_G"><i class="fas fa-camera-retro"></i>Kits HD</a></li>
+          {{!-- <li><a href="/accesorios"><i class="fas fa-archive"></i>Accesorios</a></li> --}}
+          <li><a
+              href="https://www.htvs.com.ar/hogar/camaras_DisplayType_G#applied_filter_id%3Dcategory%26applied_filter_name%3DCategor%C3%ADas%26applied_filter_order%3D4%26applied_value_id%3DMLA1574%26applied_value_name%3DHogar%2C+Muebles+y+Jard%C3%ADn%26applied_value_order%3D2%26applied_value_results%3D11%26is_custom%3Dfalse_DisplayType_G"><i
+                class="fas fa-video"></i>Cámaras</a></li>
+          {{!-- <li><a href="/alarmas"><i class="fas fa-bell"></i>Alarmas</a></li> --}}
+        </ul>
+      </li>
+      {{!-- <li><a href="/hogar" class="link-nav">Hogar</a></li> --}}
+      <li><a href="/conectividad_DisplayType_G" class="link-nav">Conectividad</a></li>
+      <li><a
+          href="https://www.htvs.com.ar/electronica/audio/audio_DisplayType_G#applied_filter_id%3Dcategory%26applied_filter_name%3DCategor%C3%ADas%26applied_filter_order%3D3%26applied_value_id%3DMLA409810%26applied_value_name%3DAudio%26applied_value_order%3D1%26applied_value_results%3D7%26is_custom%3Dfalse_DisplayType_G"
+          class="link-nav">Audio</a></li>
+      <li><a href="/instrumentos_DisplayType_G" class="link-nav">Instrumentos Musicales</a></li>
+      <li><a href="/nuestros-productos_DisplayType_G" class="link-nav">Todos los productos</a></li>
+      <li>
+        <a href="/politica-devolucion" class="link-nav">Términos y Condiciones</a>
+
+        <ul>
+          <li><a href="https://pdfhost.io/v/4c2YcBL.0_ANULACION_DE_GARANTIAdocx" target="_blank">Política de Garantías y
+              Devoluciones</a></li>
+          <li><a href="https://pdfhost.io/v/a4IctN0tl_Planilla_RMA_Notebooks_HTVS_2" target="_blank">Descargar Planilla de
+              Devoluciones</a></li>
+        </ul>
+      </li>
+    </ul>
+  </nav>
+</div>
+
+{{#if bannerStyles}}
+<div class="nav-header__banner">
+  <div itemtype="http://schema.org/ImageObject" class="nav-header__banner-image" style="{{bannerStyles}}" itemscope>
+  </div>
+</div>
+{{/if}}
