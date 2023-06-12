@@ -740,7 +740,6 @@ input[data-js=attributes-toggle]:checked+.toggle-menu span:nth-child(2) {
 
 .nav-footer-about p {
     margin: 0 !important;
-    order: 1
 }
 
 @media screen and (min-width: 768px) {
@@ -1431,6 +1430,10 @@ input[data-js=attributes-toggle]:checked+.toggle-menu span:nth-child(2) {
     .nav-footer-about a:first-child {
         padding-right: 64px
     }
+
+    .nav-footer-about p{
+        order: 2;
+    }
 }
 
 .d-none {
@@ -1513,6 +1516,12 @@ input[data-js=attributes-toggle]:checked+.toggle-menu span:nth-child(2) {
 
 .navbar li:first-of-type {
     margin-left: 20px;
+}
+
+@media (max-width: 1200px) {
+    .navbar li {
+        margin-left: 0;
+    }
 }
 
 .navbar li {
@@ -2196,3 +2205,37 @@ ul .submenuPolitica {
         max-width: 500px;
     }
 } */
+
+.descuentos{
+    border-radius: 20px;
+    border: 2px solid orangered;
+    background-color: #FDE348 !important;
+    color: #000000 !important;
+    height: 41px;
+    width: 120px !important;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    transition-duration: .5s;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.descuentos:hover{
+    background-color: #FDE348 !important;
+    transform: scale(1.1);
+}
+
+.img-descuentos{
+    height: 50px;
+    width: 50px;
+    margin-bottom: 30px;
+    z-index: 1000;
+    position: relative;
+    right: -20px;
+}
+
+.descuentos-p{
+    position: relative;
+    left: 25px;
+}

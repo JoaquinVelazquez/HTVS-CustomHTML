@@ -1,5 +1,4 @@
 const URLactual_menu = window.location.pathname;
-//const contenido = document.querySelector(".ui-search-main")
 
 if (URLactual_menu !== "/") {
     //Menu Desktop

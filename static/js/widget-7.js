@@ -91,3 +91,7 @@ if (URLactual == "/politica-devolucion") {
         contenido_devolucion.classList.add("contenido-devolucion")
         throw new Error("Error controlado");
 }
+
+
+
+console.log(7)
